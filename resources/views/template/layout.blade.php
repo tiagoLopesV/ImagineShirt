@@ -81,6 +81,11 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                             Dashboard
                         </a>
+                        <a class="nav-link {{ Route::currentRouteName() == 'categorie.show' ? 'active' : '' }}"
+                            href="{{ route('categorie.show') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Catalogo
+                        </a>
                     </div>
                 </div>
             </nav>

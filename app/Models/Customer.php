@@ -14,7 +14,7 @@ class Customer extends Model
     public $incrementing=false;
 
     protected $fillable = [
-        'user_id', 
+        'id', 
         'nif', 
         'address', 
         'default_payment_type', 
