@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Customer extends Model
 {
     use HasFactory;
-    
+
+    public $incrementing=false;
+
     protected $fillable = [
         'user_id', 
         'nif', 
@@ -18,6 +20,7 @@ class Customer extends Model
         'default_payment_type', 
         'default_payment_ref'
     ];
+
 
     public function user(): BelongsTo
     {

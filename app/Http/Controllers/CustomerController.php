@@ -42,7 +42,7 @@ class CustomerController extends Controller
             $newUser->password = Hash::make($formData['password_inicial']);
             $newUser->save();
             $newCustomer = new Customer();
-            $newCustomer->user_id = $newUser->id;
+            $newCustomer->id = $newUser->id;
             $newCustomer->save();
             if ($request->hasFile('file_foto')) {
                 $path = $request->file_foto->store('public/fotos');
