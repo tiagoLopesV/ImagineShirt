@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class CategorieController extends Controller
 {
-    public function show(): View
+    public function show(Request $request): View
     {
 
         $categories = Categorie::all();
@@ -21,16 +21,15 @@ class CategorieController extends Controller
         $filterByName = $request->name ?? '';
         $tshirtImageQuery = TshirtImage::query();
         if ($filterByCategorie !== '') {
-            $tshirtImageQuery->where('category', $filterByCategorie);
+            $tshirtImageQuery->where('category_id', $filterByCategorie);
         }else{
-            $tshirtImageQuery = TshirtImage::whereNotNull('category_id');
+            $tshirtImageQuery->whereNotNull('category_id');
             if (auth()->check()) {
-                $tshirtImageQuery->orWhere( 'costumer_id',auth()->user()->id );
+                $tshirtImageQuery->orWhere('customer_id',$request->user()->id );
             };
         }
         if ($filterByName !== '') {
-            $tshirtImageIds = ThshirtImages::where('name', 'like', "%$filterByName%")->pluck('id');
-            $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
+            $tshirtImageQuery->where('description', 'like', "%$filterByName%");
         }
             
         $tshirtImages = $tshirtImageQuery->paginate(10);

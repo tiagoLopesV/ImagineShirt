@@ -14,9 +14,9 @@ class TshirtImage extends Model
     public $timestamps = false;
     protected $fillable = ['name', 'description', 'image_url', 'optional'];
 
-    public function costumer(): HasOne
+    public function customer(): HasOne
     {
-        return $this->hasOne(Costumer::class);
+        return $this->hasOne(Customer::class);
     }
 
     public function categorieRef(): BelongsTo
