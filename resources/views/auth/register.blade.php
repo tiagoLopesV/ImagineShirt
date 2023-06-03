@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('template.layout')
 
-@section('content')
+@section('titulo', 'Register')
+
+@section('main')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -40,6 +42,22 @@
                         </div>
 
                         <div class="row mb-3">
+                                <label for="nif" class="col-md-4 col-form-label text-md-end">NIF</label>
+
+                                <div class="col-md-6">
+                                    <input id="nif" type="text"
+                                        class="form-control @error('nif') is-invalid @enderror" name="nif"
+                                        value="{{ old('nif') }}" required>
+
+                                    @error('nif')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -52,6 +70,7 @@
                                 @enderror
                             </div>
                         </div>
+
 
                         <div class="row mb-3">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
