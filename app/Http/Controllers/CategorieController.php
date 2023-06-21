@@ -23,9 +23,9 @@ class CategorieController extends Controller
         if ($filterByCategorie !== '') {
             $tshirtImageQuery->where('category_id', $filterByCategorie);
         }else{
-            $tshirtImageQuery = TshirtImage::whereNotNull('category_id');
+            $tshirtImageQuery->whereNotNull('category_id');
             if (auth()->check()) {
-                $tshirtImageQuery->orWhere( 'costumer_id',auth()->user()->id );
+                $tshirtImageQuery->orWhere('customer_id',$request->user()->id );
             };
         }
         if ($filterByName !== '') {
