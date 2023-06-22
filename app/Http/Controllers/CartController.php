@@ -2,32 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
+
+use App\Models\TshirtImage;
 use App\Models\Cart;
 use App\Models\CartItem;
-use Illuminate\Support\Arr;
-use App\Models\TshirtImage;
+
+use Illuminate\Http\Request;
+use App\Http\Requests\RemoveItemRequest;
 //use App\Models\Product;
 
 class CartController extends Controller
 {
     public function show()
     {
-        // Receives the user's cart
+
         $user = Auth::user();
         $cart = $user->cart;
-    
+
         // Retrieve the cart items
-        $cartItems = $cart ? $cart->items : [];
+        $cartItems = session('cartItems', []);
     
-        // Extract the productId, name, and quantity from each cart item
-        $productIds = array_column($cartItems, 'productId');
-        $names = array_column($cartItems, 'name');
-        $quantities = array_column($cartItems, 'quantity');
+        // If $cartItems is null, initialize it as an empty array
+        if ($cartItems === null) {
+            $cartItems = [];
+        }
     
-        return view('cart.cart', compact('productIds', 'names', 'quantities'));
+        // Extract the names, quantities, and prices from cart items
+        $names = [];
+        $quantities = [];
+        $prices = [];
+
+        foreach ($cartItems as $cartItem) {
+            if (isset($cartItem['name'])) {
+                $names[] = $cartItem['name'];
+            }
+            if (isset($cartItem['quantity'])) {
+                $quantities[] = $cartItem['quantity'];
+            }
+            if (isset($cartItem['price'])) {
+                $prices[] = $cartItem['price'];
+            }
+        }
+    
+        return view('cart.cart', compact('names', 'quantities', 'prices'));
     }
+    
     
 
     
@@ -36,7 +57,7 @@ class CartController extends Controller
     {
         $productId = $request->input('productId');
         $cartItems = session('cartItems', []);
-        $productName = '';
+        //$productName = '';
         
     
         // Check if item is already added to cart
@@ -46,15 +67,22 @@ class CartController extends Controller
 
         $tshirtImage = TshirtImage::find($productId);
         $productName = $tshirtImage ? $tshirtImage->name : '';
+        $price = 10;
     
         // If item exists, increment quantity
         if ($itemExists) {
             $quantity = $itemExists['quantity'] + 1;
+
+            if($quantity >= 3){
+                $price == 20;
+            }
+
             $itemExists['quantity'] = $quantity;
             $itemExists['name'] = $productName;
-            echo "Item já Existe!\n";
-            echo "\nQuantidade: ";
-            echo $itemExists['quantity'];
+            $itemExists['price'] = $price;
+            
+            
+
             // Find the index of the existing item in the cart array
             $index = array_search($itemExists, $cartItems);
 
@@ -68,43 +96,49 @@ class CartController extends Controller
                 'productId' => $productId,
                 'name' => $productName,
                 'quantity' => 1,
+                'price' => 10,
             ];
             
-            echo "\nItem Não existe\n";
         }
 
         $cartItems[] = $itemExists;
     
         // Store and update cart items
         session(['cartItems' => $cartItems]);
-        echo "\nID do produto: ";
-        echo $productId;
-        echo "\nID do produto: ";
-        echo $productName;
-        return redirect()->route('cart.show')->getTargetUrl();
+
+        return $this->show();;
     }
     
-    
-    
 
-    
-    public function removeItem(Request $request)
+    public function removeItem(RemoveItemRequest $request)
     {
-        $request->validate(['item_id' => 'required|exists:cart_items,id',]);
-
         $user = Auth::user();
         $cart = $user->cart;
-
-        $cartItem = CartItem::findOrFail($request->item_id);
-
-        if ($cartItem->cart_id != $cart->id) {
-            abort(403, 'Unauthorized action.');
+    
+        // Retrieve the cart items
+        $cartItems = session('cartItems', []);
+    
+        // Find the cart item by name
+        $cartItem = Arr::first($cartItems, function ($item) use ($request) {
+            return $item['name'] == $request->deleteItem;
+        });
+    
+        if (!$cartItem) {
+            abort(404, 'Item not found in cart.');
         }
-
-        $cartItem->delete();
-
-        return redirect()->route('cart.show')->with('success', 'Item removed from cart successfully.');
+    
+        // Remove the cart item from the cart items array
+        $cartItems = array_filter($cartItems, function ($item) use ($request) {
+            return $item['name'] !== $request->deleteItem;
+        });
+    
+        // Store and update cart items
+        session(['cartItems' => $cartItems]);
+    
+        return redirect()->route('cart.show');
     }
+    
+    
     
 
 }

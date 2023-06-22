@@ -9,19 +9,34 @@
 @section('main')
     <div>
         <h2>hello world</h2>
-        @if(count($productIds) > 0)
+        @if(isset($names))
             <table class="table">
                 <thead class="table-dark">
                     <tr>
                         <th>Nome</th>
                         <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($productIds as $index => $productId)
+                    @foreach ($names as $index => $name)
                         <tr>
                             <td>{{ $names[$index] }}</td>
                             <td>{{ $quantities[$index] }}</td>
+                            <td>{{ $prices[$index] }}</td>
+                            <td>
+                                <form method="POST" action="{{ route('cart.remove') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="deleteItem" value="{{ $names[$index] }}">
+                                    <button type="submit" class="btn delete-button">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </form>
+                            </td>
+
+
                         </tr>
                     @endforeach
                 </tbody>
