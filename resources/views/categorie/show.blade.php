@@ -30,6 +30,11 @@
                             value="{{ old('name', $filterByName) }}">
                         <label for="inputName" class="form-label">Nome</label>
                     </div>
+                    <div class="mb-3 me-2 flex-grow-1 form-floating">
+                        <input type="text" class="form-control" name="description" id="inputDescription"
+                            value="{{ old('description', $filterByDescription) }}">
+                        <label for="inputDescription" class="form-label">Descrição</label>
+                    </div>
                 </div>
             </div>
             <div class="flex-shrink-1 d-flex flex-column justify-content-between">

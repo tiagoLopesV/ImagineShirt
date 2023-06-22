@@ -19,6 +19,7 @@ class CategorieController extends Controller
         $categories = Categorie::all();
         $filterByCategorie = $request->id ?? '';
         $filterByName = $request->name ?? '';
+        $filterByDescription = $request->description ?? '';
         $tshirtImageQuery = TshirtImage::query();
         if ($filterByCategorie !== '') {
             $tshirtImageQuery->where('category_id', $filterByCategorie);
@@ -32,9 +33,13 @@ class CategorieController extends Controller
             $tshirtImageIds = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('id');
             $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
         }
+        if ($filterByDescription !== '') {
+            $tshirtImageIds = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('id');
+            $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
+        }
             
         $tshirtImages = $tshirtImageQuery->paginate(10);
-        return view('categorie.show', compact('categories','tshirtImages', 'filterByCategorie', 'filterByName'));
+        return view('categorie.show', compact('categories','tshirtImages', 'filterByCategorie', 'filterByName', 'filterByDescription'));
 
 
 
