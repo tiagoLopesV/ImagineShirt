@@ -14,13 +14,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('categorie', [CategorieController::class, 'show'])->name('categorie.show');
 
-Route::get('/cart.cart', [CartController::class, 'show'])->name('cart.show');
+Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
 
 
 
 //Cart Routes**************************************************************************
 //add item
-Route::post('/cart/add', [CartController::class, 'addItem'])->name('cart.addItem');
+Route::post('/cart/add-item', [CartController::class, 'addItem'])->name('cart.addItem');
 
 //remove item
 Route::delete('/cart/remove/{itemId}', [CartController::class, 'removeItem'])->name('cart.remove');

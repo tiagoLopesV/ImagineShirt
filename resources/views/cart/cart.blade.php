@@ -4,16 +4,28 @@
 
 @section('subtitulo')
     <h2>Carrinho de Compras</h2>
+@endsection
 
 @section('main')
     <div>
-        @if(count($cartItems) > 0)
-
-            <ul>
-                @foreach($cartItems as $item)
-                    <li>{{ $item->name }}</li>
-                @endforeach
-            </ul>
+        <h2>hello world</h2>
+        @if(count($productIds) > 0)
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($productIds as $index => $productId)
+                        <tr>
+                            <td>{{ $names[$index] }}</td>
+                            <td>{{ $quantities[$index] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         @else
             <!-- Sem items -->
             <p>Nenhum item no carrinho</p>

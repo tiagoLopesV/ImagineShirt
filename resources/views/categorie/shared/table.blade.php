@@ -21,7 +21,7 @@
                 <td> 
                     <form method="POST" action="{{ route('cart.addItem') }}">
                         @csrf
-                        <input type="hidden" name="product_id" value="{{ $tshirtImage->id }}">
+                        <input type="hidden" name="productId" value="{{ $tshirtImage->id }}">
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-plus"></i>
                         </button>
