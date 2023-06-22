@@ -1,7 +1,7 @@
 <table class="table">
     <thead class="table-dark">
         <tr>
-                <th></th>
+            <th>Imagem</th>
             <th>Nome</th>
             <th>Descrição</th>
             <th></th>
@@ -10,10 +10,8 @@
     <tbody>
         @foreach ($tshirtImages as $tshirtImage)
             <tr>
-                
-                    <td width="45">
-                        <img src="{{ $tshirtImage->image_url }}" class="bg-dark rounded-circle"
-                             width="45" height="45">
+                    <td width="100">           
+                    <img src="{{ $tshirtImage->tshirtPhotoUrl }}" class="center" >
                     </td>
                 <td>{{ $tshirtImage->name }}</td>
                 <td>{{ $tshirtImage->description }}</td>

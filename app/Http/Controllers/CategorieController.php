@@ -37,7 +37,7 @@ class CategorieController extends Controller
             $tshirtImageIds = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('id');
             $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
         }
-            
+          
         $tshirtImages = $tshirtImageQuery->paginate(10);
         return view('categorie.show', compact('categories','tshirtImages', 'filterByCategorie', 'filterByName', 'filterByDescription'));
 

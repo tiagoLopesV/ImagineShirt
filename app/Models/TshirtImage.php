@@ -28,4 +28,13 @@ class TshirtImage extends Model
     {
         return $this->belongsToMany(Order::class, 'order_items');
     }
+
+    protected function tshirtPhotoUrl(): Attribute
+{
+    return Attribute::make(
+    get: function () {
+    return $this->image_url ? asset('storage/tshirt_images/' . $this->image_url) : asset('/img/avatar_unknown.png');
+    },
+    );
+}
 }
