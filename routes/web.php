@@ -4,11 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerController;
 
 
 Route::view('/', 'home')->name('root');
 
 Auth::routes();
+
+Route::resource('customer', CustomerController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

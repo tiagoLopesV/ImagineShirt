@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Models\User;
 use App\Models\Customer;
 //CustomerRequest
@@ -16,6 +16,20 @@ use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
+
+    public function index(Request $request): View
+    {
+        $filterByNome = $request->nome ?? '';
+        $customerQuery = Customer::query();   
+        if ($filterByNome !== '') {
+            $userIds = User::where('name', 'like', "%$filterByNome%")->pluck('id');
+            $customerQuery->whereIntegerInRaw('user_id', $userIds);
+        }
+        
+        $customers = $customerQuery->with('user')->paginate(10);
+        return view('customer.index', compact('customers', 'filterByNome'));
+    }
+
     public function create(): View
     {
         $customer = new Customer();
