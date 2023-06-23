@@ -19,7 +19,8 @@ class CartController extends Controller
     {
 
         $user = Auth::user();
-        $cart = $user->cart;
+        //mudar para policy se possivel
+        $cart = $user ? $user->cart : null;
 
         // Retrieve the cart items
         $cartItems = session('cartItems', []);
@@ -113,7 +114,8 @@ class CartController extends Controller
     public function removeItem(RemoveItemRequest $request)
     {
         $user = Auth::user();
-        $cart = $user->cart;
+        //mudar para policy se possivel
+        $cart = $user ? $user->cart : null;
     
         // Retrieve the cart items
         $cartItems = session('cartItems', []);
