@@ -1,10 +1,11 @@
 @extends('template.layout')
 
-@section('titulo', 'Alterar Cliente')
+@section('titulo', 'Alterar Utilizador')
 
 @section('subtitulo')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><strong>{{ $customer->user->name }}</strong></li>
+        <li class="breadcrumb-item"><a href="{{ route('users.show', ['user' => $user]) }}">Utilizador</a></li>
+        <li class="breadcrumb-item"><strong>{{ $user->name }}</strong></li>
         <li class="breadcrumb-item active">Alterar</li>
     </ol>
 @endsection

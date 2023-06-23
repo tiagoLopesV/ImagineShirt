@@ -1,10 +1,9 @@
 @extends('template.layout')
 
-@section('titulo', 'Perfil de cliente')
+@section('titulo', 'Cliente')
 
 @section('subtitulo')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Clientes</a></li>
         <li class="breadcrumb-item"><strong>{{ $customer->user->name }}</strong></li>
         <li class="breadcrumb-item active">Consultar</li>
     </ol>

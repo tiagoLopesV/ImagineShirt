@@ -1,17 +1,16 @@
 @extends('template.layout')
 
-@section('titulo', 'Customers')
+@section('titulo', 'Users')
 
 @section('subtitulo')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">Gestão</li>
-        <li class="breadcrumb-item active">Utilizadores</li>
+        <li class="breadcrumb-item active">Funcionarios / Administradores</li>
     </ol>
 @endsection
 
 @section('main')
     
-    <form method="GET" action="{{ route('customers.index') }}">
+    <form method="GET" action="{{ route('users.index') }}">
         <div class="d-flex justify-content-between">
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
@@ -29,10 +28,10 @@
         </div>
     </form>
 
-    @include('customers.shared.table', [
-        'customers' => $customers,
+    @include('users.shared.table', [
+        'users' => $users,
     ])
     <div>
-        {{ $customers->withQueryString()->links() }}
+        {{ $users->withQueryString()->links() }}
     </div>
 @endsection
