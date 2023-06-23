@@ -8,7 +8,6 @@
 
 @section('main')
     <div>
-        <h2>hello world</h2>
         @if(isset($names))
             <table class="table">
                 <thead class="table-dark">
@@ -41,6 +40,17 @@
                     @endforeach
                 </tbody>
             </table>
+            @if(Auth::check())
+                <!-- Show the order button for authenticated user -->
+                <form method="POST" action="{{ route('order.place') }}">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="btn order-button">Place Order</button>
+                </form>
+            @else
+                <!-- Redirect non-authenticated user to register page -->
+                <a href="{{ route('register') }}">Register</a> to place an order.
+            @endif
         @else
             <!-- Sem items -->
             <p>Nenhum item no carrinho</p>
