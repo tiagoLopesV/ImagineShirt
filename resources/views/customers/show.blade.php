@@ -4,7 +4,7 @@
 
 @section('subtitulo')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('customer.index') }}">Clientes</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Clientes</a></li>
         <li class="breadcrumb-item"><strong>{{ $customer->user->name }}</strong></li>
         <li class="breadcrumb-item active">Consultar</li>
     </ol>
@@ -21,7 +21,7 @@
                         data-bs-target="#confirmationModal">
                         Apagar Cliente
                     </button>
-                    <a href="{{ route('customer.edit', ['customer' => $customer]) }}" class="btn btn-secondary ms-3">
+                    <a href="{{ route('customers.edit', ['customer' => $customer]) }}" class="btn btn-secondary ms-3">
                         Alterar Cliente
                     </a>
                 </div>

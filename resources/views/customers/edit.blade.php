@@ -4,7 +4,7 @@
 
 @section('subtitulo')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('customer.index') }}">Alunos</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('customers.index') }}">Alunos</a></li>
         <li class="breadcrumb-item"><strong>{{ $customer->user->name }}</strong></li>
         <li class="breadcrumb-item active">Alterar</li>
     </ol>
@@ -12,7 +12,7 @@
 
 @section('main')
     <form id="form_client" novalidate class="needs-validation" method="POST"
-        action="{{ route('customer.update', ['aluno' => $aluno]) }}" enctype="multipart/form-data">
+        action="{{ route('customers.update', ['aluno' => $aluno]) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="user_id" value="{{ $aluno->user_id }}">

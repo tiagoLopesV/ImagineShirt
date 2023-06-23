@@ -9,7 +9,7 @@
 @endsection
 
 @section('main')
-    <form method="GET" action="{{ route('customer.index') }}">
+    <form method="GET" action="{{ route('customers.index') }}">
         <div class="d-flex justify-content-between">
             <div class="flex-grow-1 pe-2">
                 <div class="d-flex justify-content-between">
@@ -22,7 +22,7 @@
             </div>
             <div class="flex-shrink-1 d-flex flex-column justify-content-between">
                 <button type="submit" class="btn btn-primary mb-3 px-4 flex-grow-1" name="filtrar">Filtrar</button>
-                <a href="{{ route('customer.index') }}" class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
+                <a href="{{ route('customers.index') }}" class="btn btn-secondary mb-3 py-3 px-4 flex-shrink-1">Limpar</a>
             </div>
         </div>
     </form>

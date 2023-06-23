@@ -13,7 +13,7 @@ Route::view('/', 'home')->name('root');
 
 Auth::routes();
 
-Route::resource('customer', CustomerController::class);
+Route::resource('customers', CustomerController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
