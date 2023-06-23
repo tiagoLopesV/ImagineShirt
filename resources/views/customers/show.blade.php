@@ -15,14 +15,16 @@
         <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
             <div class="flex-grow-1 pe-2">
                 @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => true])
-                @include('customers.shared.fields', ['aluno' => $customer, 'readonlyData' => true])
+                @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => true])
                 <div class="my-1 d-flex justify-content-end">
+                @if (Auth::user()->user_type === 'A')    
                     <button type="button" name="delete" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#confirmationModal">
                         Apagar Cliente
                     </button>
+                @endif
                     <a href="{{ route('customers.edit', ['customer' => $customer]) }}" class="btn btn-secondary ms-3">
-                        Alterar Cliente
+                        Editar Perfil
                     </a>
                 </div>
             </div>

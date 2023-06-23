@@ -9,6 +9,7 @@
 @endsection
 
 @section('main')
+
     <form method="GET" action="{{ route('customers.index') }}">
         <div class="d-flex justify-content-between">
             <div class="flex-grow-1 pe-2">
