@@ -52,8 +52,10 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        @if (Auth::user()->customer !== null)
                         <li><a class="dropdown-item"
-                                    href="{{ route('customers.show', ['customer' => Auth::user()->customer]) }}">Perfil</a></li>
+                                    href="{{ route('customers.show', ['customer' => Auth::user()->customer]) }}">Alterar perfil</a></li>
+                        @endif
                         <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
                         <li><a class="dropdown-item" href="{{ route('cart.show') }}">Carrinho de Compras</a></li>
                         <li>
