@@ -27,7 +27,7 @@ class CustomerController extends Controller
         }
         
         $customers = $customerQuery->with('user')->paginate(10);
-        return view('customer.index', compact('customers', 'filterByNome'));
+        return view('customers.index', compact('customers', 'filterByNome'));
     }
 
     public function create(): View
@@ -75,6 +75,6 @@ class CustomerController extends Controller
 
     public function show(Customer $customer): View
     {
-        return view('customer.show', compact('customer'));
+        return view('customers.show', compact('customer'));
     }
 }

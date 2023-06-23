@@ -15,7 +15,7 @@
         <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
             <div class="flex-grow-1 pe-2">
                 @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => true])
-                @include('customer.shared.fields', ['aluno' => $customer, 'readonlyData' => true])
+                @include('customers.shared.fields', ['aluno' => $customer, 'readonlyData' => true])
                 <div class="my-1 d-flex justify-content-end">
                     <button type="button" name="delete" class="btn btn-danger" data-bs-toggle="modal"
                         data-bs-target="#confirmationModal">

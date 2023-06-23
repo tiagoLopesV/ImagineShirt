@@ -19,9 +19,9 @@ class TshirtImage extends Model
         return $this->hasOne(Customer::class);
     }
 
-    public function categorieRef(): BelongsTo
+    public function categoryRef(): BelongsTo
     {
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function orders(): BelongsToMany

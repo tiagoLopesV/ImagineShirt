@@ -27,7 +27,7 @@
         </div>
     </form>
 
-    @include('customer.shared.table', [
+    @include('customers.shared.table', [
         'customers' => $customers,
     ])
     <div>

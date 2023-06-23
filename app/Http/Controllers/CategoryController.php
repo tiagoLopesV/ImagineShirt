@@ -6,23 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\TshirtImage;
-use App\Models\Categorie;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 
 
-class CategorieController extends Controller
+class CategoryController extends Controller
 {
     public function show(Request $request): View
     {
 
-        $categories = Categorie::all();
-        $filterByCategorie = $request->id ?? '';
+        $categories = Category::all();
+        $filterByCategory = $request->id ?? '';
         $filterByName = $request->name ?? '';
         $filterByDescription = $request->description ?? '';
         $tshirtImageQuery = TshirtImage::query();
-        if ($filterByCategorie !== '') {
-            $tshirtImageQuery->where('category_id', $filterByCategorie);
+        if ($filterByCategory !== '') {
+            $tshirtImageQuery->where('category_id', $filterByCategory);
         }else{
             $tshirtImageQuery->whereNotNull('category_id');
             if (auth()->check()) {
@@ -39,7 +39,7 @@ class CategorieController extends Controller
         }
           
         $tshirtImages = $tshirtImageQuery->paginate(10);
-        return view('categorie.show', compact('categories','tshirtImages', 'filterByCategorie', 'filterByName', 'filterByDescription'));
+        return view('categories.show', compact('categories','tshirtImages', 'filterByCategory', 'filterByName', 'filterByDescription'));
 
 
 
