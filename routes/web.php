@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\UserController;
 
 
 Route::view('/', 'home')->name('root');
@@ -18,6 +19,7 @@ Route::resource('customers', CustomerController::class);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::delete('user/{user}/foto', [UserController::class, 'destroy_photo'])->name('users.photo.destroy');
 
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
