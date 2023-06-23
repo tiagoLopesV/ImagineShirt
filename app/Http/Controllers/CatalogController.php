@@ -11,22 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 
 
-class CategoryController extends Controller
+class CatalogController extends Controller
 {
-
-    public function show(): View
-    {
-        $categories = Category::all();
-
-    return view('categories.show', compact('categories'));
-    }
-
-    public function create(): View
-    {
-        $category = new Category();
-        return view('categories.create')
-            ->withCategory($category);
-    }
 
     public function index(Request $request): View
     {
@@ -54,7 +40,7 @@ class CategoryController extends Controller
         }
           
         $tshirtImages = $tshirtImageQuery->paginate(10);
-        return view('categories.index', compact('categories','tshirtImages', 'filterByCategory', 'filterByName', 'filterByDescription'));
+        return view('catalog', compact('categories','tshirtImages', 'filterByCategory', 'filterByName', 'filterByDescription'));
 
 
 

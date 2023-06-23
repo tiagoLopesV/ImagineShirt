@@ -7,17 +7,23 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CatalogController;
 
 
 Route::view('/', 'home')->name('root');
+Route::view('/', 'catalog')->name('root');
 
 Auth::routes();
 
 Route::resource('customers', CustomerController::class);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('category', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+
+Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+
+Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
 
 
 //Cart Routes**************************************************************************
