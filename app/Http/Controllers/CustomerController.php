@@ -72,4 +72,9 @@ class CustomerController extends Controller
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
     }
+
+    public function show(Customer $customer): View
+    {
+        return view('customer.show', compact('customer'));
+    }
 }

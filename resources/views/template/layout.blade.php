@@ -52,7 +52,8 @@
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item"
+                                    href="{{ route('customer.show', ['customer' => Auth::user()->customer]) }}">Perfil</a></li>
                         <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
                         <li><a class="dropdown-item" href="{{ route('cart.show') }}">Carrinho de Compras</a></li>
                         <li>
