@@ -22,9 +22,7 @@ Route::delete('user/{user}/foto', [UserController::class, 'destroy_photo'])->nam
 
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
-Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('category.create');
+Route::resource('categories', CategoryController::class);
 
 
 //Cart Routes**************************************************************************
