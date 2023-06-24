@@ -1,9 +1,9 @@
 @extends('template.layout')
 
-@section('titulo', 'Carrinho de Compras')
+@section('titulo', 'Encomendar')
 
 @section('subtitulo')
-    <h2>Encomendar</h2>
+    
 @endsection
 
 @section('main')

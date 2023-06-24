@@ -16,7 +16,6 @@ class OrderItem extends Model
         'sub_total',
     ];
 
-    // Define the relationship with the Order model
     public function order()
     {
         return $this->belongsTo(Order::class);

@@ -39,16 +39,16 @@
                         </tr>
                     @endforeach
                 </tbody>
+
+                <h1>Total: {{ $totals[$index] }}</h1>
             </table>
             @if(Auth::check())
-                <!-- Show the order button for authenticated user -->
                 <form method="POST" action="{{ route('order.view') }}">
                     @csrf
                     @method('POST')
                     <button type="submit" class="btn order-button">Encomendar</button>
                 </form>
             @else
-                <!-- Redirect non-authenticated user to register page -->
                 <form method="GET" action="{{ route('home') }}">
                     @csrf
                     @method('GET')
