@@ -8,12 +8,15 @@ use Illuminate\View\View;
 use App\Http\Requests\PlaceOrderRequest;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Customer;
 
 use App\Http\Controllers\Controller;
+
+use PDF;
 
 
 class OrderController extends Controller
@@ -45,9 +48,19 @@ class OrderController extends Controller
     
         // Save the order to the database
         $order->save();
+        // Generate the PDF
+        $pdf = PDF::loadView('order/pdfFile', ['order' => $order]);
+        $pdfPath = public_path('storage/orders/' . $orderId . '.pdf');
+
+        
+
+        // Save the PDF file
+        $pdf->save($pdfPath);
+
+        $orderId = $order->id;
     
         // Redirect to the order confirmation page
-        return redirect()->route('order.confirmationOrder', ['orderId' => $orderId]);
+        return view('order.orderConfirmation', ['orderId' => $orderId]);
     }
     
 
