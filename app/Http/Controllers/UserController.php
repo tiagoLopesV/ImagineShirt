@@ -78,7 +78,7 @@ class UserController extends Controller
                     Storage::delete('public/photos/' . $user->photo_url);
                 }
             });
-            $htmlMessage = "Utilizador #{$aluno->id}
+            $htmlMessage = "Utilizador #{$user->id}
                     <strong>\"{$user->name}\"</strong> foi apagado com sucesso!";
             return redirect()->route('users.index')
                 ->with('alert-msg', $htmlMessage)

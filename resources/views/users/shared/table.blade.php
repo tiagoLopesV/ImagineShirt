@@ -24,11 +24,11 @@
                             class="btn btn-dark"><i class="fas fa-edit"></i></a></td>
                 <td class="button-icon-col">
                         <button type="button" name="delete" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#confirmationModal"{{ $user->id }}>
+                            data-bs-target="#confirmationModal"{{ $user }}>
                         <i class="fas fa-trash"></i>
                 </td>    
             </tr>
-        @endforeach
+       
     </tbody>
 </table>
 @if (!$users->isEmpty())
@@ -44,3 +44,4 @@
     ])
 @endif
 
+@endforeach
