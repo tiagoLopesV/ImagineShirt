@@ -29,7 +29,7 @@ Route::resource('categories', CategoryController::class);
 
 Route::resource('tshirt_images', TshirtImageController::class);
 
-
+Route::resource('order', OrderController::class);
 
 //Cart Routes**************************************************************************
 //add item

@@ -108,8 +108,8 @@
                         </a>
                     @endif
                     @if (Auth::check() && Auth::user()->user_type !== 'C') 
-                        <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}"
-                            href="">
+                        <a class="nav-link {{ Route::currentRouteName() == 'order.index' ? 'active' : '' }}"
+                            href="{{ route('order.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-bag-shopping"></i></div>
                             Encomendas
                         </a>

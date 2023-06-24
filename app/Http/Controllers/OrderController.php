@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Customer;
+
 
 use App\Http\Controllers\Controller;
 
@@ -60,9 +62,6 @@ class OrderController extends Controller
         return view('order.orderConfirmation', ['orderId' => $orderId]);
     }
     
-    
-
-    
     public function showConfirmation($orderId)
     {
         $order = Order::findOrFail($orderId);
@@ -70,11 +69,25 @@ class OrderController extends Controller
         return view('order/orderConfirmation', ['orderId' => $orderId]);
     }
     
-
-
-
     public function view(Customer $customer): View
     {
         return view('order.order', compact('customer'));
+    }
+
+    public function edit(Order $order): View
+    {
+        return view('order.edit', compact('order'));
+    }
+
+    public function index(Request $request): View
+    {
+        $filterByNif = $request->nif ?? '';
+        $orderQuery = Order::query();
+        if ($filterByNif !== '') {
+            $orderQuery->whereRaw("nif LIKE '%" . trim($filterByNif) . "%'");
+        }
+        
+        $orders = $orderQuery->paginate(10);
+        return view('order.index', compact('orders', 'filterByNif'));
     }
 }
