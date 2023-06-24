@@ -55,9 +55,10 @@
                         @if (Auth::user()->customer !== null)
                         <li><a class="dropdown-item"
                                     href="{{ route('customers.show', ['customer' => Auth::user()->customer]) }}">Perfil</a></li>
-                        @endif
-                        <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
                         <li><a class="dropdown-item" href="{{ route('cart.show') }}">Carrinho de Compras</a></li>
+                        @endif
+                    
+                        <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
@@ -107,7 +108,7 @@
                             Categorias
                         </a>
                     @endif
-                    @if (Auth::check() && Auth::user()->user_type !== 'C') 
+                    @if (Auth::check() && Auth::user()->user_type === 'E') 
                         <a class="nav-link {{ Route::currentRouteName() == 'order.index' ? 'active' : '' }}"
                             href="{{ route('order.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-bag-shopping"></i></div>
