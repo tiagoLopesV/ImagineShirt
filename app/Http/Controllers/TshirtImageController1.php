@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Category;
 
 class TshirtImageController extends Controller
 {
@@ -23,6 +24,39 @@ class TshirtImageController extends Controller
     public function show(TshirtImage $tshirt_image): View
     {
         return view('tshirt_images.show', compact('tshirt_image'));
+    }
+
+    public function create(): View
+    {
+       
+        $categories = Category::all();
+        $tshirt_image = new TshirtImage();
+        return view('tshirt_images.create', compact('tshirt_image','categories'));
+    }
+
+    public function store(TshirtImageRequest $request): RedirectResponse
+    {
+        $formData = $request->validated();
+        $tshirt_image = DB::transaction(function () use ($formData, $request) {
+            $newTshirtImage = new TshirtImage();
+            $newTshirtImage->name = $formData['name'];
+            $newTshirtImage->description = $formData['description'];
+            $newTshirtImage->category_id = $formData['category_id'];
+            $newTshirtImage->image_url = "a";
+            $newTshirtImage->save();
+            if ($request->hasFile('photo_file')) {
+                $path = $request->photo_file->store('public/tshirt_images');
+                $newTshirtImage->image_url = basename($path);
+                $newTshirtImage->save();
+            }
+            return $newTshirtImage;
+        });
+        $url = route('tshirt_images.show', ['tshirt_image' => $tshirt_image]);
+        $htmlMessage = "Utilizador <a href='$url'>#{$tshirt_image->id}</a>
+                        <strong>\"{$tshirt_image->name}\"</strong> foi criado com sucesso!";
+        return redirect()->route('home')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
     }
     
     public function edit(TshirtImage $tshirt_image): View
@@ -61,14 +95,14 @@ class TshirtImageController extends Controller
             });
             $htmlMessage = "Imagem #{$tshirt_image->id}
                     <strong>\"{$tshirt_image->name}\"</strong> foi apagada com sucesso!";
-            return redirect()->route('users.index')
+            return redirect()->route('tshirt_images.index')
                 ->with('alert-msg', $htmlMessage)
                 ->with('alert-type', 'success');
             
         } catch (\Exception $error) {
             $url = route('tshirt_images.show', ['tshirt_image' => $tshirt_image]);
             $htmlMessage = "Não foi possível apagar a imagem <a href='$url'>#{$tshirt_image->id}</a>
-                        <strong>\"{$tshirt_image->name}\"</strong> porque ocorreu um erro: ";
+                        <strong>\"{$tshirt_image->name}\"</strong> porque ocorreu um erro: " . $error->getMessage();;
             $alertType = 'danger';
         }
         return redirect()->route('catalog')

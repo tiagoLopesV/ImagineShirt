@@ -47,23 +47,41 @@ class CategoryController extends Controller
         return view('categories.edit', compact('category'));
     }
 
+    public function destroy(Category $category): RedirectResponse
+    {
+        try {
+            $category->delete();
+            $htmlMessage = "Categoria #{$category->id}
+                    <strong>\"{$category->name}\"</strong> foi apagada com sucesso!";
+            return redirect()->route('categories.index')
+                ->with('alert-msg', $htmlMessage)
+                ->with('alert-type', 'success');
+            
+        } catch (\Exception $error) {
+            $url = route('categories.index', ['category' => $category]);
+            $htmlMessage = "Não foi possível apagar a categoria <a href='$url'>#{$category->id}</a>
+                        <strong>\"{$category->name}\"</strong> porque ocorreu um erro!";
+            $alertType = 'danger';
+        }
+        return back()
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', $alertType);
+    }
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, Category $category): RedirectResponse
-    {
-    $formData = $request->validated();
-    $category = DB::transaction(function () use ($formData, $category, $request) {
-        $category->name = $formData['name'];
-        $category->save();
-        return $category;
-    });
-    $url = route('categories.index', ['category' => $category]);
-    $htmlMessage = "A Categoria <a href='$url'>#{$category->id}</a>
+    public function update(CategoryRequest $request, Category $category): RedirectResponse{
+        $formData = $request->validated();
+        $category = DB::transaction(function () use ($formData, $category, $request) {
+            $category->name = $formData['name'];
+            $category->save();
+            return $category;
+        });
+        $url = route('categories.index', ['category' => $category]);
+        $htmlMessage = "A Categoria <a href='$url'>#{$category->id}</a>
                     <strong>\"{$category->name}\"</strong> foi alterado com sucesso!";
-    return redirect()->route('categories.index')
-        ->with('alert-msg', $htmlMessage)
-        ->with('alert-type', 'success');
-
-}
+        return redirect()->route('categories.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
+    }   
 }

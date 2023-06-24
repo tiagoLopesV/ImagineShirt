@@ -11,13 +11,7 @@
 
 @section('main')
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    
     @endif
     <form id="form_customer" novalidate class="needs-validation" method="POST"
         action="{{ route('customers.update', ['customer' => $customer]) }}" enctype="multipart/form-data">
@@ -40,7 +34,7 @@
             </div>
             <div class="ps-2 mt-5 mt-md-1 d-flex mx-auto flex-column align-items-center justify-content-between"
                 style="min-width:260px; max-width:260px;">
-                @include('users.shared.fields_foto', [
+                @include('users.shared.fields_photo', [
                     'user' => $customer->user,
                     'allowUpload' => true,
                     'allowDelete' => true,

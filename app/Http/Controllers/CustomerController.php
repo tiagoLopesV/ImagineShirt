@@ -82,6 +82,46 @@ class CustomerController extends Controller
         return view('customers.edit', compact('customer'));
     }
 
+    public function destroy(Customer $customer): RedirectResponse
+    {
+        try {
+            DB::transaction(function () use ($customer) {
+                $customer->user->delete();
+                if ($customer->user->photo_url) {
+                    Storage::delete('public/photos/' . $customer->user->photo_url);
+                }
+                $customer->delete();
+            });
+            $htmlMessage = "Cliente #{$customer->user->id}
+                    <strong>\"{$customer->user->name}\"</strong> foi apagado com sucesso!";
+            return redirect()->route('customers.index')
+                ->with('alert-msg', $htmlMessage)
+                ->with('alert-type', 'success');
+            
+        } catch (\Exception $error) {
+            $url = route('customers.show', ['customer' => $customer]);
+            $htmlMessage = "Não foi possível apagar o cliente <a href='$url'>#{$customer->user->id}</a>
+                        <strong>\"{$customer->user->name}\"</strong> porque ocorreu um erro!". $error->getMessage();
+            $alertType = 'danger';
+        }
+        return back()
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', $alertType);
+    }
+    
+
+    public function destroy_photo(Customer $customer): RedirectResponse
+    {
+        if ($customer->user->photo_url) {
+            Storage::delete('public/photos/' . $customer->user->photo_url);
+            $customer->user->photo_url = null;
+            $customer->user->save();
+        }
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('alert-msg', 'Foto do utilizador "' . $user->name . '" foi removida!')
+            ->with('alert-type', 'success');
+    }
+
     public function update(CustomerRequest $request, Customer $customer): RedirectResponse
     {
         $formData = $request->validated();
