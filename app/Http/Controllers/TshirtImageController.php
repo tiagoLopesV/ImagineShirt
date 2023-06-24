@@ -17,9 +17,7 @@ class TshirtImageController extends Controller
 
     public function index()
     {
-        $tshirt_images = TshirtImage::all();
-
-        return view('tshirt_images.index', ['tshirt_images' => $tshirt_images]);
+        return redirect()->route('catalog');
     }
 
     public function show(TshirtImage $tshirt_image): View
@@ -52,6 +50,30 @@ class TshirtImageController extends Controller
         return redirect()->route('catalog')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', 'success');
+    }
+
+    public function destroy(TshirtImage $tshirt_image): RedirectResponse
+    {
+        try {
+            DB::transaction(function () use ($tshirt_image) {
+                $tshirt_image->delete();
+                Storage::delete('public/tshirt_images/' . $tshirt_image->photo_url);
+            });
+            $htmlMessage = "Imagem #{$tshirt_image->id}
+                    <strong>\"{$tshirt_image->name}\"</strong> foi apagada com sucesso!";
+            return redirect()->route('users.index')
+                ->with('alert-msg', $htmlMessage)
+                ->with('alert-type', 'success');
+            
+        } catch (\Exception $error) {
+            $url = route('tshirt_images.show', ['tshirt_image' => $tshirt_image]);
+            $htmlMessage = "Não foi possível apagar a imagem <a href='$url'>#{$tshirt_image->id}</a>
+                        <strong>\"{$tshirt_image->name}\"</strong> porque ocorreu um erro!";
+            $alertType = 'danger';
+        }
+        return back()
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', $alertType);
     }
 
 }

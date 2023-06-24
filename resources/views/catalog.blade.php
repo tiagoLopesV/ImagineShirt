@@ -43,7 +43,7 @@
             </div>
         </div>
     </form>
-    @include('shared.table', [
+    @include('tshirt_images.shared.table', [
         'tshirt_images' => $tshirt_images,
     ])
     <div>

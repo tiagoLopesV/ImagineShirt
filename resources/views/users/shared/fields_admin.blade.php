@@ -2,7 +2,7 @@
     $disabledStr = $readonlyData ?? false ? 'disabled' : '';
 @endphp
 
-@if ($user->user_type != 'C')
+
 <div class="mb-3 form-floating">
     <select class="form-select @error('tipo') is-invalid @enderror" name="type" id="inputType" {{ $disabledStr }}>
         <option value="A" {{ $user->user_type == 'A' ? 'selected' : '' }}>Administrador</option>
@@ -15,7 +15,6 @@
         </div>
     @enderror
 </div>
-@endif
 
 <div class="mb-3">
     <div class="form-check form-switch" {{ $disabledStr }}>
