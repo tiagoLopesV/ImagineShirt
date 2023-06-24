@@ -12,13 +12,7 @@
 
 @section('main')
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+
     @endif
     <form id="form_user" novalidate class="needs-validation" method="POST"
         action="{{ route('users.update', ['user' => $user]) }}" enctype="multipart/form-data">

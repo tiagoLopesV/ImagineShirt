@@ -12,13 +12,7 @@
 
 @section('main')
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+
     @endif
     <form id="form_image" novalidate class="needs-validation" method="POST"
         action="{{ route('tshirt_images.update', ['tshirt_image' => $tshirt_image]) }}" enctype="multipart/form-data">
@@ -44,4 +38,4 @@
             </div>
         </div>
     </form>
-
+@endsection

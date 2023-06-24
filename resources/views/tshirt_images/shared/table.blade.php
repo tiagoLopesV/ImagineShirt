@@ -35,24 +35,16 @@
                 <td class="button-icon-col"><a href="{{ route('tshirt_images.edit', ['tshirt_image' => $tshirt_image]) }}"
                             class="btn btn-dark"><i class="fas fa-edit"></i></a></td>
                 <td class="button-icon-col">
-                        <button type="button" name="delete" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#confirmationModal">
-                            <i class="fas fa-trash"></i></button>
+                    <form method="POST" action="{{ route('tshirt_images.destroy', ['tshirt_image' => $tshirt_image]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" name="delete" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
                 </td>
                 @endif
             </tr>
         @endforeach
     </tbody>
 </table>
-@if (!$tshirt_images->isEmpty())
-    @include('shared.confirmationDialog', [
-        'title' => 'Quer realmente apagar a imagem?',
-        'msgLine1' => 'Clique no botão "Apagar" para confirmar a operação',
-        'msgLine2' => '',
-        'confirmationButton' => 'Apagar',
-        'formActionRoute' => 'tshirt_images.destroy',
-        'formActionRouteParameters' => ['tshirt_image' => $tshirt_image],
-        'formMethod' => 'DELETE',
-        'tshirt_image' => $tshirt_image
-    ])
-@endif

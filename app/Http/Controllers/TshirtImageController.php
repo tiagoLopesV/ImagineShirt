@@ -61,17 +61,17 @@ class TshirtImageController extends Controller
             });
             $htmlMessage = "Imagem #{$tshirt_image->id}
                     <strong>\"{$tshirt_image->name}\"</strong> foi apagada com sucesso!";
-            return redirect()->route('users.index')
+            return redirect()->route('catalog')
                 ->with('alert-msg', $htmlMessage)
                 ->with('alert-type', 'success');
             
         } catch (\Exception $error) {
             $url = route('tshirt_images.show', ['tshirt_image' => $tshirt_image]);
             $htmlMessage = "Não foi possível apagar a imagem <a href='$url'>#{$tshirt_image->id}</a>
-                        <strong>\"{$tshirt_image->name}\"</strong> porque ocorreu um erro!";
+                        <strong>\"{$tshirt_image->name}\"</strong> porque ocorreu um erro: " . $error->getMessage();;
             $alertType = 'danger';
         }
-        return back()
+        return redirect()->route('catalog')
             ->with('alert-msg', $htmlMessage)
             ->with('alert-type', $alertType);
     }

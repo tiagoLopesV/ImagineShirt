@@ -23,25 +23,15 @@
                 <td class="button-icon-col"><a href="{{ route('users.edit', ['user' => $user]) }}"
                             class="btn btn-dark"><i class="fas fa-edit"></i></a></td>
                 <td class="button-icon-col">
-                        <button type="button" name="delete" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#confirmationModal"{{ $user }}>
-                        <i class="fas fa-trash"></i>
-                </td>    
+                    <form method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" name="delete" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
-       
+        @endforeach
     </tbody>
 </table>
-@if (!$users->isEmpty())
-    @include('shared.confirmationDialog', [
-        'title' => 'Quer realmente apagar o utilizador?',
-        'msgLine1' => 'Clique no botão "Apagar" para confirmar a operação',
-        'msgLine2' => '',
-        'confirmationButton' => 'Apagar',
-        'formActionRoute' => 'users.destroy',
-        'formActionRouteParameters' => ['user' => $user->id],
-        'formMethod' => 'DELETE',
-        'user' => $user
-    ])
-@endif
-
-@endforeach
