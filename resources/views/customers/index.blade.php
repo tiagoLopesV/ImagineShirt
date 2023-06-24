@@ -1,6 +1,6 @@
 @extends('template.layout')
 
-@section('titulo', 'Customers')
+@section('titulo', 'Clientes')
 
 @section('subtitulo')
     <ol class="breadcrumb">

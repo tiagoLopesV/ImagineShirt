@@ -1,6 +1,6 @@
 @extends('template.layout')
 
-@section('titulo', 'Imagem')
+@section('titulo', 'Alterar Imagem')
 
 @section('subtitulo')
     <ol class="breadcrumb">
