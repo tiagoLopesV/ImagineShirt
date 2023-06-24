@@ -19,7 +19,7 @@ Route::resource('customers', CustomerController::class);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::resource('users', UserController::class);
 Route::delete('user/{user}/foto', [UserController::class, 'destroy_photo'])->name('users.photo.destroy');
 
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');

@@ -21,6 +21,16 @@ class UserController extends Controller
         return view('users.index', compact('users', 'filterByNome'));
     }
 
+    public function show(User $user): View
+    {
+        return view('users.show', compact('user'));
+    }
+    
+    public function edit(User $user): View
+    {
+        return view('users.edit', compact('user'));
+    }
+
     public function destroy_foto(User $user): RedirectResponse
     {
         if ($aluno->user->url_foto) {

@@ -1,6 +1,6 @@
 @extends('template.layout')
 
-@section('titulo', 'Alterar Cliente')
+@section('titulo', 'Cliente')
 
 @section('subtitulo')
     <ol class="breadcrumb">
@@ -27,7 +27,11 @@
         <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
             <div class="flex-grow-1 pe-2">
                 @include('users.shared.fields', ['user' => $customer->user, 'readonlyData' => false])
-                @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => false])
+                @if (Auth::user()->user_type === 'C') 
+                @include('customers.shared.fields', ['customer' => $customer, 'readonlyData' => true])
+                @else
+                @include('users.shared.fields_admin', ['user' => $customer->user, 'readonlyData' => true])
+                @endif
                 <div class="my-1 d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary" name="ok" form="form_customer">Guardar
                         Alterações</button>
