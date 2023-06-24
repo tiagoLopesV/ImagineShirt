@@ -36,8 +36,8 @@ class CatalogController extends Controller
         }
     }
 
-    $tshirtImages = $tshirtImageQuery->paginate(10);
-    return view('catalog', compact('categories', 'tshirtImages', 'filterByCategory', 'filterByName', 'filterByDescription'));
+    $tshirt_images = $tshirtImageQuery->paginate(10);
+    return view('catalog', compact('categories', 'tshirt_images', 'filterByCategory', 'filterByName', 'filterByDescription'));
 }
 
 

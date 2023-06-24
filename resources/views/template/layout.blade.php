@@ -81,14 +81,30 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                            Dashboard
+                        <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}"
+                            href="{{ route('users.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Utilizadores
+                        </a>
+                        <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}"
+                            href="{{ route('customers.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Clientes
                         </a>
                         <a class="nav-link {{ Route::currentRouteName() == 'catalog' ? 'active' : '' }}"
                             href="{{ route('catalog') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Catalogo
+                        </a>
+                        <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}"
+                            href="{{ route('categories.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Categorias
+                        </a>
+                        <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}"
+                            href="">
+                            <div class="sb-nav-link-icon"><i class="fas fa-bag-shopping"></i></div>
+                            Encomendas
                         </a>
                     </div>
                 </div>

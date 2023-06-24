@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+
 class TshirtImage extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $table = 'tshirt_images';
     protected $fillable = ['name', 'description', 'image_url', 'optional'];
 
     public function customer(): HasOne

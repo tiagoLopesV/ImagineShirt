@@ -17,11 +17,9 @@ class TshirtImageRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('tshirtImages', 'name')->ignore($this->id),
             ],
             'description' => [
                 'required',
-                Rule::unique('tshirtImages', 'description')->ignore($this->id),
             ],
             'photo_file' =>         'sometimes|image|max:4096',
         ];

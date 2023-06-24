@@ -70,8 +70,8 @@ class CartController extends Controller
             return $item['productId'] == $productId;
         });
 
-        $tshirtImage = TshirtImage::find($productId);
-        $productName = $tshirtImage ? $tshirtImage->name : '';
+        $tshirt_image = TshirtImage::find($productId);
+        $productName = $tshirt_image ? $tshirt_image->name : '';
         $price = 10;
     
         // If item exists, increment quantity
