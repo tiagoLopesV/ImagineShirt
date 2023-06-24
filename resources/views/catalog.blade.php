@@ -9,6 +9,9 @@
 @endsection
 
 @section('main')
+@if (Auth::check() && Auth::user()->user_type == 'A') 
+<p><a class="btn btn-success" href="{{ route('tshirt_images.create') }}"><i class="fas fa-plus"></i> &nbsp;Inserir nova imagem</a></p>
+@endif
     <form method="GET" action="{{ route('catalog') }}">
         <div class="d-flex justify-content-between">
             <div class="flex-grow-1 pe-2">

@@ -81,31 +81,39 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                    @if (Auth::check() && Auth::user()->user_type == 'A') 
                         <a class="nav-link {{ Route::currentRouteName() == 'users.index' ? 'active' : '' }}"
                             href="{{ route('users.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                             Utilizadores
                         </a>
+                    @endif
+                    @if (Auth::check() && Auth::user()->user_type == 'A') 
                         <a class="nav-link {{ Route::currentRouteName() == 'customers.index' ? 'active' : '' }}"
                             href="{{ route('customers.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                             Clientes
                         </a>
+                    @endif
                         <a class="nav-link {{ Route::currentRouteName() == 'catalog' ? 'active' : '' }}"
                             href="{{ route('catalog') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Catalogo
                         </a>
+                    @if (Auth::check() && Auth::user()->user_type == 'A') 
                         <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}"
                             href="{{ route('categories.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Categorias
                         </a>
+                    @endif
+                    @if (Auth::check() && Auth::user()->user_type !== 'C') 
                         <a class="nav-link {{ Route::currentRouteName() == 'categories.index' ? 'active' : '' }}"
                             href="">
                             <div class="sb-nav-link-icon"><i class="fas fa-bag-shopping"></i></div>
                             Encomendas
                         </a>
+                    @endif
                     </div>
                 </div>
             </nav>

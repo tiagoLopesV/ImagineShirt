@@ -5,7 +5,7 @@
             <th>Nome</th>
             <th>Descrição</th>
             <th class="button-icon-col"></th>
-            @if (Auth::user()->user_type !== 'C') 
+            @if (Auth::check() && Auth::user()->user_type !== 'C') 
             <th class="button-icon-col"></th>
             <th class="button-icon-col"></th>
             @endif
@@ -19,7 +19,7 @@
                 </td>
                 <td>{{ $tshirt_image->name }}</td>
                 <td>{{ $tshirt_image->description }}</td>
-                @if (Auth::user()->user_type === 'C') 
+                @if (Auth::check() && Auth::user()->user_type !== 'C') 
                 <td> 
                     <form method="POST" action="{{ route('cart.addItem') }}">
                         @csrf
