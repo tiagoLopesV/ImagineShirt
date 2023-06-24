@@ -26,7 +26,7 @@
 
 <div class="mb-3 form-floating">
     <select class="form-select @error('tipo') is-invalid @enderror" name="payType" id="inputPayType" {{ $disabledStr }}>
-        <option {{ $customer->default_payment_type == 'MC' ? 'selected' : '' }}>MasterCard</option>
+        <option value="MC"  {{ $customer->default_payment_type == 'MC' ? 'selected' : '' }}>MasterCard</option>
         <option {{ $customer->default_payment_type == 'VISA' ? 'selected' : '' }}>Visa</option>
         <option {{ $customer->default_payment_type == 'PAYPAL' ? 'selected' : '' }}>Paypal</option>
         </select>
