@@ -23,6 +23,9 @@
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-plus"></i>
                         </button>
+                        <td class="button-icon-col"><a class="btn btn-dark"
+                        href="">
+                            <i class="fas fa-edit"></i></a></td>
                     </form>
                 </td>
             </tr>

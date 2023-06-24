@@ -26,7 +26,7 @@
                     <td>{{ $category->name }}</td>
                     <td class="button-icon-col"><a class="btn btn-secondary"
                     href="{{ route('catalog', ['id' => $category->id]) }}">
-                            <i class="fas fa-eye"></i></a></td>
+                            <i class="fas fa-search"></i></a></td>
                     <td class="button-icon-col"><a class="btn btn-dark"
                     href="{{ route('categories.edit', ['category' => $category]) }}">
                             <i class="fas fa-edit"></i></a></td>

@@ -9,6 +9,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TshirtImageController;
 
 
 Route::view('/', 'home')->name('root');
@@ -25,6 +26,9 @@ Route::delete('user/{user}/foto', [UserController::class, 'destroy_photo'])->nam
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
 Route::resource('categories', CategoryController::class);
+
+Route::resource('tshirtImages', TshirtImageController::class);
+
 
 
 //Cart Routes**************************************************************************
