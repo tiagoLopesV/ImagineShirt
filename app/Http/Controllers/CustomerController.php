@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -58,13 +58,13 @@ class CustomerController extends Controller
             $newCustomer->id = $newUser->id;
             $newCustomer->save();
             if ($request->hasFile('photo_file')) {
-                $path = $request->file_photo->store('public/fotos');
-                $newUser->url_foto = basename($path);
+                $path = $request->photo_file->store('public/photos');
+                $newUser->photo_url = basename($path);
                 $newUser->save();
             }
             return $newCustomer;
         });
-        $url = route('home.show', ['customer' => $customer]);
+        $url = route('customers.show', ['customer' => $customer]);
         $htmlMessage = "Cliente <a href='$url'>#{$customer->id}</a>
                         <strong>\"{$customer->user->name}\"</strong> foi criado com sucesso!";
         return redirect()->route('home')
@@ -99,7 +99,7 @@ class CustomerController extends Controller
             $user->save();
             if ($request->hasFile('photo_file')) {
                 if ($user->photo_url) {
-                    Storage::delete('public/fotos/' . $user->photo_url);
+                    Storage::delete('public/photos/' . $user->photo_url);
                 }
                 $path = $request->photo_file->store('public/photos');
                 $user->photo_url = basename($path);
