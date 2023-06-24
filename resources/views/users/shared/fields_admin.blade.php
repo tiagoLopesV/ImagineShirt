@@ -4,9 +4,9 @@
 
 @if ($user->user_type != 'C')
 <div class="mb-3 form-floating">
-    <select class="form-select @error('tipo') is-invalid @enderror" name="payType" id="inputPayType" {{ $disabledStr }}>
-        <option {{ $user->user_type == 'A' ? 'selected' : '' }}>Administrador</option>
-        <option {{ $user->user_type == 'F' ? 'selected' : '' }}>Funcionário</option>
+    <select class="form-select @error('tipo') is-invalid @enderror" name="type" id="inputType" {{ $disabledStr }}>
+        <option value="A" {{ $user->user_type == 'A' ? 'selected' : '' }}>Administrador</option>
+        <option value="E" {{ $user->user_type == 'E' ? 'selected' : '' }}>Funcionário</option>
          </select>
     <label for="inputType" class="form-label">Cargo</label>
     @error('type')

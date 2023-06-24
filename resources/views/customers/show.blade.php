@@ -33,7 +33,7 @@
             </div>
             <div class="ps-2 mt-5 mt-md-1 d-flex mx-auto flex-column align-items-center justify-content-between"
                 style="min-width:260px; max-width:260px;">
-                @include('users.shared.fields_foto', [
+                @include('users.shared.fields_photo', [
                     'user' => $customer->user,
                     'allowUpload' => false,
                     'allowDelete' => false,

@@ -2,8 +2,8 @@
 @if ($allowUpload)
     <div class="mb-3 pt-3">
         <input type="file" class="form-control @error('photo_file') is-invalid @enderror" name="photo_file"
-            id="inputFileFoto">
-        @error('file_foto')
+            id="inputFilePhoto">
+        @error('photo_file')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>

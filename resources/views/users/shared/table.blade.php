@@ -29,3 +29,16 @@
         @endforeach
     </tbody>
 </table>
+@if (!$users->isEmpty())
+    @include('shared.confirmationDialog', [
+        'title' => 'Quer realmente apagar o utilizador?',
+        'msgLine1' => 'Clique no botão "Apagar" para confirmar a operação',
+        'msgLine2' => '',
+        'confirmationButton' => 'Apagar',
+        'formActionRoute' => 'users.destroy',
+        'formActionRouteParameters' => ['user' => $user],
+        'formMethod' => 'DELETE',
+        'user' => $user
+    ])
+@endif
+
