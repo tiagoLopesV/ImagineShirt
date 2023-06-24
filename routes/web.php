@@ -56,5 +56,13 @@ Route::get('order/downloadPDF/{orderId}', 'OrderController@downloadPDF')->name('
 
 
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('send/mail', [SendMailController::class, 'send_mail'])->name('send_mail');
