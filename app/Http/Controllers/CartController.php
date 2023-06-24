@@ -18,24 +18,24 @@ class CartController extends Controller
 {
     public function show()
     {
-
         $user = Auth::user();
         //mudar para policy se possivel
         $cart = $user ? $user->cart : null;
-
-        // Retrieve the cart items
+    
+        
         $cartItems = session('cartItems', []);
     
-        // If $cartItems is null, initialize it as an empty array
+        // if $cartItems is null, initialize it as an empty array
         if ($cartItems === null) {
             $cartItems = [];
         }
     
-        // Extract the names, quantities, and prices from cart items
+        // Extract the names, quantities, prices, and total prices from cart items
         $names = [];
         $quantities = [];
         $prices = [];
-
+        $totals = [];
+    
         foreach ($cartItems as $cartItem) {
             if (isset($cartItem['name'])) {
                 $names[] = $cartItem['name'];
@@ -46,10 +46,14 @@ class CartController extends Controller
             if (isset($cartItem['price'])) {
                 $prices[] = $cartItem['price'];
             }
+    
+            $total = $cartItem['quantity'] * $cartItem['price'];
+            $totals[] = $total;
         }
     
-        return view('cart.cart', compact('names', 'quantities', 'prices'));
+        return view('cart.cart', compact('names', 'quantities', 'prices', 'totals'));
     }
+    
     
     
 
@@ -62,8 +66,6 @@ class CartController extends Controller
         $filterByCategory = $request->input('filterByCategory');
         //$productName = '';
         
-    
-        // Check if item is already added to cart
         $itemExists = Arr::first($cartItems, function ($item) use ($productId) {
             return $item['productId'] == $productId;
         });
@@ -85,11 +87,8 @@ class CartController extends Controller
             $itemExists['price'] = $price;
             
             
-
-            // Find the index of the existing item in the cart array
             $index = array_search($itemExists, $cartItems);
 
-            // Update the existing item in the cart array with the updated quantity
             $cartItems[$index] = $itemExists;
             
         } else { // If item doesn't exist, add it to the cart
@@ -119,10 +118,9 @@ class CartController extends Controller
         //mudar para policy se possivel
         $cart = $user ? $user->cart : null;
     
-        // Retrieve the cart items
         $cartItems = session('cartItems', []);
     
-        // Find the cart item by name
+        // find the cart item by name
         $cartItem = Arr::first($cartItems, function ($item) use ($request) {
             return $item['name'] == $request->deleteItem;
         });
@@ -131,12 +129,11 @@ class CartController extends Controller
             abort(404, 'Item not found in cart.');
         }
     
-        // Remove the cart item from the cart items array
+        // Remove
         $cartItems = array_filter($cartItems, function ($item) use ($request) {
             return $item['name'] !== $request->deleteItem;
         });
     
-        // Store and update cart items
         session(['cartItems' => $cartItems]);
     
         return redirect()->route('cart.show');

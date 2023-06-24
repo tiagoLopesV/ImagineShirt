@@ -1,6 +1,6 @@
 @extends('template.layout')
 
-@section('titulo', 'Order Confirmation')
+@section('titulo', 'Confirmação')
 
 @section('subtitulo')
     
@@ -8,11 +8,9 @@
 
 @section('main')
     <div class="container">
-        <h1>Order Confirmation</h1>
-        <!-- Add your order confirmation content here -->
-
-        <!-- Check if the PDF path is available and display the download link -->
-        <a href="{{ asset('storage/orders/' . $orderId . '.pdf') }}" class="btn btn-primary" target="_blank" onclick="downloadPDF()">Download PDF</a>
+        <h1>Confirmação Encomenda</h1>
+        
+        <a href="{{ asset('storage/orders/' . $orderId . '.pdf') }}" class="btn btn-primary" target="_blank" onclick="downloadPDF()">Download Fatura</a>
 
         <script>
             function downloadPDF() {
@@ -25,10 +23,7 @@
             }
         </script>
 
-
-
-
-        <a href="{{ route('home') }}" class="btn btn-primary">Go to Homepage</a>
+        <a href="{{ route('home') }}" class="btn btn-primary">Pagina Inicial</a>
 
 
     </div>

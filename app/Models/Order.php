@@ -20,16 +20,16 @@ class Order extends Model
     ];
 
     protected $attributes = [
-        'payment_ref' => 'N/A', // Set a default value for 'payment_ref' field
+        'payment_ref' => 'N/A', 
     ];
 
-    // Define the relationship with the Customer model
+ 
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
 
-    // Define the relationship with the OrderItem model
+
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Order Confirmation</title>
-    <style>
-        /* Add your CSS styling for the PDF here */
-    </style>
-</head>
 <body>
-    <h1>Order Confirmation</h1>
-    <p>Thank you for your order. Here are the order details:</p>
+    <h1>Detalhes da Compra</h1>
     
-    <!-- Display the order details from the $order variable -->
-    <p>Order ID: {{ $order->id }}</p>
-    <p>Status: {{ $order->status }}</p>
-    <p>Customer ID: {{ $order->customer_id }}</p>
-    <p>Date: {{ $order->date }}</p>
-    <p>Total Price: {{ $order->total_price }}</p>
+    <p>Encomenda nº: {{ $order->id }}</p>
+    <p>Estado: {{ $order->status }}</p>
+    <p>Cliente nº: {{ $order->customer_id }}</p>
+    <p>Data: {{ $order->date }}</p>
+    <p>Total: {{ $order->total_price }}</p>
     <p>NIF: {{ $order->nif }}</p>
-    <p>Address: {{ $order->address }}</p>
-    <p>Payment Type: {{ $order->payment_type }}</p>
-    <p>Payment Reference: {{ $order->payment_ref }}</p>
-    
-    <!-- Add any additional order details here -->
-    
-    <!-- You can include any other HTML content for the PDF -->
+    <p>Morada: {{ $order->address }}</p>
+    <p>Metodo de Pagamento: {{ $order->payment_type }}</p>
+    <p>Referencia Pagamento: {{ $order->payment_ref }}</p>
+    <p>Items</p>
+
+    @foreach ($cartItems as $cartItem)
+        <hr>
+        <p>Produto: {{ $cartItem['name'] }}</p>
+        <p>Quantidade: {{ $cartItem['quantity'] }}</p>
+        <p>Preço: ${{ $cartItem['price'] }}</p>
+        
+    @endforeach
 </body>
 </html>
