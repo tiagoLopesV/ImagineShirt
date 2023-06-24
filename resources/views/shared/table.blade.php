@@ -8,18 +8,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($tshirtImages as $tshirtImage)
+        @foreach ($tshirt_images as $tshirt_image)
             <tr>
                     <td width="100">           
-                    <img src="{{ $tshirtImage->tshirtPhotoUrl }}" class="center" >
+                    <img src="{{ $tshirt_image->tshirtPhotoUrl }}" class="center" >
                     </td>
-                <td>{{ $tshirtImage->name }}</td>
-                <td>{{ $tshirtImage->description }}</td>
+                <td>{{ $tshirt_image->name }}</td>
+                <td>{{ $tshirt_image->description }}</td>
 
                 <td> 
                     <form method="POST" action="{{ route('cart.addItem') }}">
                         @csrf
-                        <input type="hidden" name="productId" value="{{ $tshirtImage->id }}">
+                        <input type="hidden" name="productId" value="{{ $tshirt_image->id }}">
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-plus"></i>
                         </button>

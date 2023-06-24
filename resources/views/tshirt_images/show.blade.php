@@ -5,7 +5,7 @@
 @section('subtitulo')
 <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('catalog') }}">Catalogo</a></li>
-        <li class="breadcrumb-item"><strong>{{ $tshirtImage->name }}</strong></li>
+        <li class="breadcrumb-item"><strong>{{ $tshirt_image->name }}</strong></li>
         <li class="breadcrumb-item active">Consultar</li>
     </ol>
 
@@ -15,15 +15,15 @@
     <div>
         <div class="d-flex flex-column flex-sm-row justify-content-start align-items-start">
             <div class="flex-grow-1 pe-2">
-                @include('tshirtimages.shared.fields', ['tshirtImage' => $tshirtImage, 'readonlyData' => false])
+                @include('tshirt_images.shared.fields', ['tshirt_image' => $tshirt_image, 'readonlyData' => false])
             </div>
             <div class="ps-2 mt-5 mt-md-1 d-flex mx-auto flex-column align-items-center justify-content-between"
                 style="min-width:260px; max-width:260px;">
             </div>
             <div class="ps-2 mt-5 mt-md-1 d-flex mx-auto flex-column align-items-center justify-content-between"
                 style="min-width:260px; max-width:260px;">
-                @include('tshirtimages/shared/fields_foto', [
-                    'tshirtImage' => $tshirtImage,
+                @include('tshirt_images/shared/fields_foto', [
+                    'tshirt_image' => $tshirt_image,
                     'allowUpload' => false,
                     'allowDelete' => false,
                 ])

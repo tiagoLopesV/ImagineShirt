@@ -27,7 +27,7 @@ Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
 Route::resource('categories', CategoryController::class);
 
-Route::resource('tshirtImages', TshirtImageController::class);
+Route::resource('tshirt_images', TshirtImageController::class);
 
 
 

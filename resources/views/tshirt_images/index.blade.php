@@ -3,9 +3,9 @@
 @section('titulo', 'TshirtImage')
 
 @section('subtitulo')
-@foreach ($tshirtImages as $tshirtImage)
+@foreach ($tshirt_images as $tshirt_image)
 
-<td>{{ $tshirtImage->name }}</td>
+<td>{{ $tshirt_image->name }}</td>
 
         @endforeach
 @endsection

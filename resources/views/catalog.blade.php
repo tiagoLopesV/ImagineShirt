@@ -44,9 +44,9 @@
         </div>
     </form>
     @include('shared.table', [
-        'tshirtImages' => $tshirtImages,
+        'tshirt_images' => $tshirt_images,
     ])
     <div>
-        {{ $tshirtImages->withQueryString()->links() }}
+        {{ $tshirt_images->withQueryString()->links() }}
     </div>
 @endsection
