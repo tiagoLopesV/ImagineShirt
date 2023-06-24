@@ -11,7 +11,8 @@ class Category extends Model
     use HasFactory;
     protected $fillable = ['name'];
     protected $table = 'categories';
-
+    public $timestamps = false;
+    
     public function tshirt_images(): HasMany
     {
         return $this->hasMany(Tshirt_image::class);

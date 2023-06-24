@@ -2,10 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class HomUsereController extends Controller
+class UserController extends Controller
 {
+    public function index(Request $request): View
+    {
+        $filterByNome = $request->nome ?? '';
+        $userQuery = User::query()->where("user_type", '!=', 'C');
+        if ($filterByNome !== '') {
+            $userQuery->where('name', 'like', "%$filterByNome%");
+        }
+        
+        $users = $userQuery->paginate(10);
+        return view('users.index', compact('users', 'filterByNome'));
+    }
+
+    public function show(User $user): View
+    {
+        return view('users.show', compact('user'));
+    }
+    
+    public function edit(User $user): View
+    {
+        return view('users.edit', compact('user'));
+    }
+
     public function destroy_foto(User $user): RedirectResponse
     {
         if ($aluno->user->url_foto) {
@@ -13,8 +38,8 @@ class HomUsereController extends Controller
             $user->photo_url = null;
             $user->save();
         }
-        return redirect()->route('alunos.edit', ['aluno' => $aluno])
-            ->with('alert-msg', 'Foto do aluno "' . $aluno->user->name . '" foi removida!')
+        return redirect()->route('customers.edit', ['customer' => $user>customer])
+            ->with('alert-msg', 'Foto do utilizador "' . $user->name . '" foi removida!')
             ->with('alert-type', 'success');
     }
 }

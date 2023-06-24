@@ -10,7 +10,7 @@
         @foreach ($customers as $customer)
             <tr>
                     <td width="45">
-                    <img src="{{ $customer->user->photo_url }}" alt="Avatar" class="bg-dark rounded-circle"
+                    <img src="{{ $customer->user->fullPhotoUrl }}" alt="Avatar" class="bg-dark rounded-circle"
                                 width="45" height="45">
                     </td>
                 <td>{{ $customer->user->name }}</td>

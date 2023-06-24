@@ -23,17 +23,3 @@
         </div>
     @enderror
 </div>
-
-<div class="mb-3">
-    <div class="form-check form-switch" {{ $disabledStr }}>
-        <input type="hidden" name="blocked" value="0">
-        <input type="checkbox" class="form-check-input @error('blocked') is-invalid @enderror" name="blocked"
-            id="inputOpcional" {{ $disabledStr }} {{ old('blocked', $user->blocked) ? 'checked' : '' }} value="1">
-        <label for="inputOpcional" class="form-check-label">Bloqueado</label>
-        @error('blocked')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
-    </div>
-</div>

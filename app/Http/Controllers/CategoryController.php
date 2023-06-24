@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\TshirtImage;
 use App\Models\Category;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\DB;
 
 
@@ -14,13 +15,15 @@ use Illuminate\Support\Facades\DB;
 class CategoryController extends Controller
 {
 
-    public function show(): View
+    public function index(): View
     {
-        $categories = Category::all();
-
-    return view('categories.show', compact('categories'));
+        $categories = Category::paginate(10);
+        return view('categories.index', compact('categories'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create(): View
     {
         $category = new Category();
@@ -28,37 +31,39 @@ class CategoryController extends Controller
             ->withCategory($category);
     }
 
-    public function index(Request $request): View
+    public function store(CategoryRequest $request): RedirectResponse
     {
-
-        $categories = Category::all();
-        $filterByCategory = $request->id ?? '';
-        $filterByName = $request->name ?? '';
-        $filterByDescription = $request->description ?? '';
-        $tshirtImageQuery = TshirtImage::query();
-        if ($filterByCategory !== '') {
-            $tshirtImageQuery->where('category_id', $filterByCategory);
-        }else{
-            $tshirtImageQuery->whereNotNull('category_id');
-            if (auth()->check()) {
-                $tshirtImageQuery->orWhere('customer_id',$request->user()->id );
-            };
-        }
-        if ($filterByName !== '') {
-            $tshirtImageIds = TshirtImage::where('name', 'like', "%$filterByName%")->pluck('id');
-            $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
-        }
-        if ($filterByDescription !== '') {
-            $tshirtImageIds = TshirtImage::where('description', 'like', "%$filterByDescription%")->pluck('id');
-            $tshirtImageQuery->whereIntegerInRaw('id', $tshirtImageIds);
-        }
-          
-        $tshirtImages = $tshirtImageQuery->paginate(10);
-        return view('categories.index', compact('categories','tshirtImages', 'filterByCategory', 'filterByName', 'filterByDescription'));
-
-
-
+        $newCategory = Category::create($request->validated());
+        $url = route('categories.show', ['id' => $newCategory]);
+        $htmlMessage = "Categoria <a href='$url'>#{$newCategory->id}</a>
+                        <strong>\"{$newCategory->name}\"</strong> foi criada com sucesso!";
+        return redirect()->route('categories.index')
+            ->with('alert-msg', $htmlMessage)
+            ->with('alert-type', 'success');
     }
 
+    public function edit(Category $category): View
+    {
+        return view('categories.edit', compact('category'));
+    }
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
+    {
+    $formData = $request->validated();
+    $category = DB::transaction(function () use ($formData, $category, $request) {
+        $category->name = $formData['name'];
+        $category->save();
+        return $category;
+    });
+    $url = route('categories.index', ['category' => $category]);
+    $htmlMessage = "A Categoria <a href='$url'>#{$category->id}</a>
+                    <strong>\"{$category->name}\"</strong> foi alterado com sucesso!";
+    return redirect()->route('categories.index')
+        ->with('alert-msg', $htmlMessage)
+        ->with('alert-type', 'success');
+
+}
 }
