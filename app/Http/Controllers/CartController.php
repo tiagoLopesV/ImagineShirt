@@ -11,6 +11,7 @@ use App\Models\CartItem;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\RemoveItemRequest;
+use Illuminate\Support\Facades\Redirect;
 //use App\Models\Product;
 
 class CartController extends Controller
@@ -58,6 +59,7 @@ class CartController extends Controller
     {
         $productId = $request->input('productId');
         $cartItems = session('cartItems', []);
+        $filterByCategory = $request->input('filterByCategory');
         //$productName = '';
         
     
@@ -107,7 +109,7 @@ class CartController extends Controller
         // Store and update cart items
         session(['cartItems' => $cartItems]);
 
-        return $this->show();;
+        return redirect()->route('catalog');
     }
     
 

@@ -44,4 +44,13 @@ Route::delete('cart/remove', [CartController::class, 'removeItem'])->name('cart.
 Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
 
 // confirm order
-Route::get('/order/confirmation', [OrderController::class, 'showConfirmation'])->name('order.confirmation');
+Route::get('/order/orderConfirmation/{orderId}', [OrderController::class, 'showConfirmation'])->name('order.confirmationOrder');
+
+Route::match(['GET', 'POST'], '/order/view', [OrderController::class, 'view'])->name('order.view');
+
+Route::get('order/downloadPDF/{orderId}', 'OrderController@downloadPDF')->name('order.downloadPDF');
+
+
+
+
+

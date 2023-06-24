@@ -15,8 +15,9 @@ class PlaceOrderRequest extends FormRequest
     {
         return [
             'nif' => 'required|digits:9',
-            'payment_method' => 'required',
+            'payType' => 'required',
             'address' => 'required',
+            'payRef' => 'required',
         ];
     }
 }
